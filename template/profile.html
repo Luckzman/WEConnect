@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WeConnect</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+    <!-- NavBar Content here -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand brand-style" href="index.html">WeConnect</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item mr-3">
+                        <a class="nav-link" href="catalog.html">Catalog</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+            
+    <!-- Main -->
+    <div class='content content-bg'>   
+            <!-- This is the page content -->
+            <div class="main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 center-content">
+                            <div class="text-color">
+                                <h2>SISA Travels and Tours</h2>
+                                <p class="card-text">SISA has stepped up their game with their lead generation. You have got to check this out yourself to understand. It's quite impressive,we get a minimum of 5-10 leads daily.</p>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="row">
+                        <div class="col-md-6 profile-img-center-align">
+                            <div class="profile-img-container">
+                                <img class="profile-img" src="img/card_img_1.jpg" alt="Business Profile Image">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="profile-title-container">
+                                <h3 class="text-light text-center">Business Profile Info</h3>
+                            </div>
+                            <div>
+                                <ul class="profile">
+                                    <li class="profile-info">Information &amp; Communication Technology</li>
+                                    <li class="profile-info">5, abc road, Ikosi-ketu, Lagos, Nigeria</li>
+                                    <li class="profile-info">080-1234-5678</li>
+                                    <li class="profile-info">info@sisatravelsandtours.com</li>
+                                    <li class="profile-info">www.sisatravelsandtours.com</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=row>
+                        <div class="col-md-11 review-container">
+                            <h3 class="reviews-title">Reviews</h3>
+                            <div class="">
+                                <small >Lorem, ipsum dolor sit amet consectetur adipisicing elit. Inventore iste veritatis placeat at perferendis nihil dolores modi minus beatae. Deleniti, accusamus, esse fugit dolores quibusdam reiciendis at nihil voluptatibus quo rem officiis cumque aut laboriosam molestiae minus impedit! Est repellat pariatur officia. Porro cupiditate necessitatibus itaque nostrum aut quis deleniti.</small>
+                                <br>
+                                <small class="reviewer">A.Citrus</small><br> 
+                            </div>
+                            <div>
+                                <a class="btn btn-primary btn-sm text-light" data-target="#reviewsForm" data-toggle="modal">Add Review</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="modal fade" id="reviewsForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Reviews</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Name</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Email</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Review</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput2">Country</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput2">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" ><a class="text-light" href="profile.html" >Submit</a></button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light text-center p-2">
+    <!-- Footer Content Here -->
+        <div class="container">
+            <span> WeConnect.com by Oniovosa Lucky Omokarho &copy;2018</span>
+        </div>
+    </footer>
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
