@@ -1,4 +1,6 @@
-const business = {
+//  import business from '../model/business';
+
+const Business = {
   listAll(req, res) {
     res.json({
       message: 'get request successful',
@@ -26,4 +28,4 @@ const business = {
   },
 };
 
-export default business;
+export default Business;
