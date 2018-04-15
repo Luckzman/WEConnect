@@ -75,6 +75,31 @@ const Business = {
       message: 'delete request not successful',
     });
   },
+  createReviews(req, res) {
+    const reviews = {
+      id: req.body.id,
+      name: req.body.name,
+      review: req.body.review,
+      email: req.body.email,
+      country: req.body.country,
+    };
+    for (let i = 0; i < business.length; i += 1) {
+      if (parseInt(req.params.id, 10) === business[i].id) {
+        business[i].reviews.push(reviews);
+        return res.status(201).json(reviews);
+      }
+    }
+    return res.status(400).json('post request not successfully');
+  },
+  listReviews(req, res) {
+    for (let i = 0; i < business.length; i += 1) {
+      if (business[i].id === parseInt(req.params.id, 10)) {
+        console.log(business[i].reviews);
+        return res.status(200).json(business[i].reviews);
+      }
+    }
+    return res.status(404).json('No Reviews Available');
+  },
 };
 
 export default Business;
