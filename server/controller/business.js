@@ -85,7 +85,6 @@ const Business = {
     };
     for (let i = 0; i < business.length; i += 1) {
       if (business[i].id === parseInt(req.params.id, 10)) {
-        console.log(business[i].reviews);
         business[i].reviews.push(review);
         return res.status(201).json(review);
       }
@@ -95,7 +94,6 @@ const Business = {
   listReviews(req, res) {
     for (let i = 0; i < business.length; i += 1) {
       if (business[i].id === parseInt(req.params.id, 10)) {
-        console.log(business[i].reviews);
         return res.status(200).json(business[i].reviews);
       }
     }
