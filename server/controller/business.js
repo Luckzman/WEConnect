@@ -17,7 +17,7 @@ const Business = {
         }
       }
     }
-    return res.status(404).json(business);
+    return res.status(200).json(business);
   },
   create(req, res) {
     const businessInput = {
@@ -76,7 +76,7 @@ const Business = {
     });
   },
   createReviews(req, res) {
-    const reviews = {
+    const review = {
       id: req.body.id,
       name: req.body.name,
       review: req.body.review,
@@ -84,9 +84,9 @@ const Business = {
       country: req.body.country,
     };
     for (let i = 0; i < business.length; i += 1) {
-      if (parseInt(req.params.id, 10) === business[i].id) {
-        business[i].reviews.push(reviews);
-        return res.status(201).json(reviews);
+      if (business[i].id === parseInt(req.params.id, 10)) {
+        business[i].reviews.push(review);
+        return res.status(201).json(review);
       }
     }
     return res.status(400).json('post request not successfully');
@@ -94,7 +94,6 @@ const Business = {
   listReviews(req, res) {
     for (let i = 0; i < business.length; i += 1) {
       if (business[i].id === parseInt(req.params.id, 10)) {
-        console.log(business[i].reviews);
         return res.status(200).json(business[i].reviews);
       }
     }
