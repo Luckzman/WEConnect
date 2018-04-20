@@ -2,17 +2,17 @@ import business from '../model/business';
 
 const Business = {
   listAll(req, res) {
-    //  const { location, category } = req.query;
-    if (req.query.location) {
+    const { location, category } = req.query;
+    if (location) {
       for (let i = 0; i < business.length; i += 1) {
-        if (req.query.location.toLowerCase() === business[i].location.toLowerCase()) {
+        if (location.toLowerCase() === business[i].location.toLowerCase()) {
           return res.status(200).json(business[i]);
         }
       }
     }
-    if (req.query.category) {
+    if (category) {
       for (let i = 0; i < business.length; i += 1) {
-        if (req.query.category.toLowerCase() === business[i].category.toLowerCase()) {
+        if (category.toLowerCase() === business[i].category.toLowerCase()) {
           return res.status(200).json(business[i]);
         }
       }

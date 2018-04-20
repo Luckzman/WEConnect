@@ -1,6 +1,8 @@
 # WeConnect
 
 [![Build Status](https://travis-ci.org/Luckzman/WeConnect.svg?branch=develop)](https://travis-ci.org/Luckzman/WeConnect)
+[![Coverage Status](https://coveralls.io/repos/github/Luckzman/WeConnect/badge.svg?branch=develop)](https://coveralls.io/github/Luckzman/WeConnect?branch=develop)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f932ae84432d2c032498/maintainability)](https://codeclimate.com/github/Luckzman/WeConnect/maintainability)
 
 WeConnect provides a platform that brings businesses and individuals together. This platform creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with.  
 
