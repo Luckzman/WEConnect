@@ -1,0 +1,454 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "WeConnect provides a platform that brings businesses and individuals together. This platform creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with.",
+    "version": "1.0.0",
+    "title": "WeConnect",
+    "contact": {
+      "email": "lumpsey@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "lit-island-82537.herokuapp.com",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Business",
+      "description": "Everything about Business"
+    },
+    {
+      "name": "user",
+      "description": "Operations about Ussers"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/business": {
+      "get": {
+        "tags": [
+          "Business"
+        ],
+        "summary": "Get all Businesses",
+        "description": "Return all Businesses",
+        "operationId": "getBusiness",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "description": "Business Location to be returned",
+            "name": "location",
+            "type": "string",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "description": "Business Category to be returned",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Business"
+            }
+          },
+          "404": {
+            "description": "Business not found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Business"
+        ],
+        "summary": "Create new business",
+        "description": "This Api endpoint will create a new business",
+        "operationId": "addBusiness",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Business object that needs to be added to the list",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Business"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "business_auth": []
+          }
+        ]
+      }
+    },
+    "/business/{BusinessId}": {
+      "get": {
+        "tags": [
+          "Business"
+        ],
+        "summary": "Find Business by ID",
+        "description": "Returns a single business",
+        "operationId": "getPetById",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "BusinessId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Business"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Business"
+        ],
+        "summary": "Update an existing Business",
+        "description": "",
+        "operationId": "updateBusiness",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "BusinessId",
+            "in": "path",
+            "description": "ID of business to return",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Business not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "business_auth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Business"
+        ],
+        "summary": "Deletes a Business",
+        "description": "",
+        "operationId": "deleteBusiness",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "BusinessId",
+            "in": "path",
+            "description": "ID ofBusiness to delete",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Business not found"
+          }
+        },
+        "security": [
+          {
+            "business_auth": []
+          }
+        ]
+      }
+    },
+    "/business/{BusinessId}/reviews": {
+      "get": {
+        "tags": [
+          "Business"
+        ],
+        "summary": "Find Reviews by BusinessId",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "operationId": "getReviews",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "BusinessId",
+            "in": "path",
+            "description": "ID of business to return reviews",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Business"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Business"
+        ],
+        "summary": "Create new business",
+        "description": "This Api endpoint will create a new business",
+        "operationId": "addReviews",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "BusinessId",
+            "in": "path",
+            "description": "ID of business",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into weconnect",
+        "description": "",
+        "operationId": "signinUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        },
+        "security": [
+          {
+            "business_auth": []
+          }
+        ]
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Creates User",
+        "description": "",
+        "operationId": "CreateUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        },
+        "security": [
+          {
+            "business_auth": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "business_auth": {
+      "type": "basic"
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      }
+    },
+    "Reviews": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "review": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "Business": {
+      "type": "object",
+      "required": [
+        "name",
+        "phone",
+        "address",
+        "email"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "product": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "reviews": {
+          "$ref": "#/definitions/Reviews"
+        },
+        "image": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
