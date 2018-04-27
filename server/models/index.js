@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
-import config from '../config/config.json';
 
 const basename = path.basename(module.filename);
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'test';
+const config = require(`${__dirname}/../config/config.js`)[env];
 const db = {};
 
 let sequelize;
@@ -34,4 +34,4 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-export default db;
+module.exports = db;
