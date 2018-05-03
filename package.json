@@ -1,11 +1,10 @@
 {
-  "name": "WeConnect",
+  "name": "weconnect",
   "version": "1.0.0",
   "description": "WeConnect provides a platform that brings businesses and individuals together. This platform creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with.",
   "main": "index.js",
   "scripts": {
-    "test": "set NODE_ENV=test && nyc mocha --require babel-register --env test ./server/test/**/*.js --exit",
-    "check": "set NODE_ENV=test&& npm run migrate && nyc mocha --require babel-register --env test ./server/test/**/*.js --exit",
+    "test": "set NODE_ENV=test&& npm run migrate && nyc mocha --require babel-register --env test ./server/test/**/*.js --exit",
     "babel-node": "babel-node index --presets=env",
     "startDev": "nodemon --exec npm run babel-node -- index",
     "start": "babel-node index",

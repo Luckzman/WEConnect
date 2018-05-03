@@ -5,7 +5,6 @@ import chaiHttp from 'chai-http';
 import app from '../../../index';
 import models from '../../models/index';
 
-// const app = api(models);
 const should = chai.should();
 chai.use(chaiHttp);
 const businessTest = {
@@ -71,34 +70,32 @@ describe('UPDATE /business:id', () => {
   });
 });
 
-// describe('GET /business/1/reviews', () => {
-//   it('it should get reviews of a business', (done) => {
-//     chai.request(app)
-//       .get('/api/v1/business/1/reviews')
-//       .end((err, res) => {
-//         res.should.have.status(200);
-//         done();
-//       });
-//   });
-// });
+describe('GET /business/1/reviews', () => {
+  it('it should get reviews of a business', (done) => {
+    chai.request(app)
+      .get('/api/v1/business/1/reviews')
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+});
 
-// describe('/POST Business', () => {
-//   it('It should be able to post reviews', (done) => {
-//     const id = 1; // have issues when i change the id to another figure other than 2,
-//     // yet to find out why
-//     chai.request(app)
-//       .post(`/api/v1/business/${id}/reviews`)
-//       .send(reviews)
-//       .end((err, res) => {
-//         res.should.have.status(201);
-//         done();
-//       });
-//   });
-// });
+describe('/POST Business', () => {
+  it('It should be able to post reviews', (done) => {
+    const id = 1;
+    chai.request(app)
+      .post(`/api/v1/business/${id}/reviews`)
+      .send(reviews)
+      .end((err, res) => {
+        res.should.have.status(201);
+        done();
+      });
+  });
+});
 
 describe('/GET Business params', () => {
   it('it should get business location', (done) => {
-    // const location = 'lagos';
     chai.request(app)
       .get(`/api/v1/business?location=${businessTest.location}`)
       .end((err, res) => {
@@ -110,7 +107,6 @@ describe('/GET Business params', () => {
 
 describe('/GET Business params', () => {
   it('it should get business location', (done) => {
-    // const location = 'lagos';
     chai.request(app)
       .get(`/api/v1/business?location=${businessTest.location}`)
       .end((err, res) => {
