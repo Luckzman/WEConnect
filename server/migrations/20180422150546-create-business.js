@@ -32,7 +32,6 @@ module.exports = {
     },
     image: {
       type: Sequelize.STRING,
-      required: true,
     },
     createdAt: {
       allowNull: false,
@@ -51,6 +50,8 @@ module.exports = {
         as: 'userId',
       },
     },
+  }, {
+    paranoid: true,
   }),
   down: (queryInterface, Sequelize) => queryInterface.dropTable('Businesses'),
 };
