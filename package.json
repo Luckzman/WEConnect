@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "pretest": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test",
+    "babel-node": "babel-node index.js --presets=env",
     "start": "node server/dist/index.js",
-    "startDev": "nodemon index.js --exec babel-node",
+    "startDev": "nodemon index.js  --exec npm run babel-node ",
     "test": "nyc mocha --require babel-register --env test ./server/test/**/*.js --exit",
     "build": "babel server -d dist && babel index.js -d dist",
     "heroku-postbuild": "npm run build",
