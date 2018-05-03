@@ -9,5 +9,6 @@ env:
 before_script:
   - psql -c 'create database weconnect_test;' -U postgres
   - psql -c "CREATE USER weconnect WITH PASSWORD 'weconnect';" -U postgres
+  - npm install sequelize@$(echo $SEQUELIZE)
 script: npm test
 after_success: npm run coverage
