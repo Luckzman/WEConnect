@@ -5,11 +5,10 @@ install: npm install
 services:
   - postgresql
 env:
-  - NODE_ENV=test DB_USERNAME=postgres DB_PASSWORD=postgres DB_NAME=weconnect_test
+  - NODE_ENV=test
 before_script:
   - psql -c 'create database weconnect_test;' -U postgres
   - psql -c "CREATE USER weconnect WITH PASSWORD 'weconnect';" -U postgres
   - npm install sequelize-cli
-  - sequelize db:migrate
 script: npm test
 after_success: npm run coverage
