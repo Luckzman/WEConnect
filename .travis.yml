@@ -9,7 +9,6 @@ env:
 before_script:
   - psql -c 'create database weconnect_test;' -U postgres
   - npm run build
-  - sequelize db:migrate:undo:all
   - sequelize db:migrate
 script: npm test
 after_success: npm run coverage
