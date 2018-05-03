@@ -1,19 +1,23 @@
-export default {
+const config = require('dotenv');
+
+config.config();
+
+module.exports = {
   development: {
-    username: DB_USERNAME,
-    password: DB_PASSWORD,
-    database: DB_NAME,
-    host: DB_HOST,
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
     secret_key: process.env.SECRET_KEY,
-    dialect: DB_DIALECT,
+    dialect: process.env.DB_DIALECT,
   },
   test: {
-    username: DB_USERNAME,
-    password: DB_PASSWORD,
-    database: DB_TEST_NAME,
-    host: DB_HOST,
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_TEST_NAME,
+    host: process.env.DB_HOST,
     secret_key: process.env.SECRET_KEY,
-    dialect: DB_DIALECT,
+    dialect: process.env.DB_DIALECT,
   },
   production: {
     environment: 'production',
