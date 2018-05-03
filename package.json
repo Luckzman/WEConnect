@@ -4,12 +4,21 @@
   "description": "WeConnect provides a platform that brings businesses and individuals together. This platform creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js --exec babel-node",
-    "test": "nyc mocha --require babel-register ./server/test/**/*.js --exit",
-    "coverage": "nyc report --reporter=text-lcov npm test | coveralls"
+    "test": "set NODE_ENV=test && nyc mocha --require babel-register --env test ./server/test/**/*.js --exit",
+    "check": "set NODE_ENV=test&& npm run migrate && nyc mocha --require babel-register --env test ./server/test/**/*.js --exit",
+    "babel-node": "babel-node index --presets=env",
+    "startDev": "nodemon --exec npm run babel-node -- index",
+    "start": "babel-node index",
+    "build": "babel server -d dist && babel index.js -d dist",
+    "unmigrate": "sequelize db:migrate:undo:all --env test",
+    "migrate": "npm run unmigrate && sequelize db:migrate --env test",
+    "heroku-postbuild": "npm run migrate",
+    "coverage": "nyc report --reporter=html | coveralls",
+    "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
-    "type": "git",
+    "type":
+   "git",
     "url": "git+https://github.com/Luckzman/WeConnect.git"
   },
   "keywords": [],
@@ -24,6 +33,7 @@
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
     "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "morgan": "^1.9.0",
     "pg": "^7.4.1",

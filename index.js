@@ -1,13 +1,7 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import logger from 'morgan';
-import router from './server';
+import config from 'dotenv';
+import app from './server';
 
-const app = express();
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/', router);
+config.config();
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

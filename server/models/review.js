@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-  }, {});
+  });
   Review.associate = (models) => {
     Review.belongsTo(models.Business, {
       foreignKey: 'businessId',

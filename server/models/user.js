@@ -12,9 +12,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    phone: DataTypes.STRING,
-    allowNull: false,
-  }, {});
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  });
   User.associate = (models) => {
     User.hasMany(models.Business, {
       foreignKey: 'userId',

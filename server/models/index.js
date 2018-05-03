@@ -1,18 +1,39 @@
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
-import config from '../config/config.json';
+import configJs from '../config/config';
 
 const basename = path.basename(module.filename);
 const env = process.env.NODE_ENV || 'development';
+const config = configJs[env];
 const db = {};
+console.log(env);
 
 let sequelize;
 if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable]);
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
+
+// if (env === 'production') {
+//   sequelize = new Sequelize(process.env[config.use_env_variable]);
+// } else {
+//   sequelize = new Sequelize(config.database, config.username, config.password, config);
+
+// if (env === 'production') {
+//   sequelize = new Sequelize(
+//     process.env[config.environment],
+//     {
+//       dialectOptions: {
+//         ssl: true,
+//         native: true,
+//       },
+//     },
+//   );
+// } else {
+//   sequelize = new Sequelize(config.database, config.username, config.password, config);
+// }
 
 fs
   .readdirSync(__dirname)
