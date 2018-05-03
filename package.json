@@ -4,15 +4,16 @@
   "description": "WeConnect provides a platform that brings businesses and individuals together. This platform creates awareness for businesses and gives the users the ability to write reviews about the businesses they have interacted with.",
   "main": "index.js",
   "scripts": {
-    "pretest": "sequelize db:migrate:undo:all --env test && sequelize db:migrate --env test",
-    "babel-node": "babel-node index.js --presets=env",
-    "start": "node server/dist/index.js",
-    "startDev": "nodemon index.js  --exec npm run babel-node ",
-    "test": "nyc mocha --require babel-register --env test ./server/test/**/*.js --exit",
+    "test": "set NODE_ENV=test&& npm run migrate && nyc mocha --require babel-register --env test ./server/test/**/*.js --exit",
+    "babel-node": "babel-node index --presets=env",
+    "startDev": "nodemon --exec npm run babel-node -- index",
+    "start": "babel-node index",
     "build": "babel server -d dist && babel index.js -d dist",
-    "heroku-postbuild": "npm run build",
-    "coverage": "nyc report --reporter=html npm test",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "unmigrate": "sequelize db:migrate:undo:all --env test",
+    "migrate": "npm run unmigrate && sequelize db:migrate --env test",
+    "heroku-postbuild": "npm run migrate",
+    "coverage": "nyc report --reporter=html | coveralls",
+    "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type":
