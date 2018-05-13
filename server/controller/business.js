@@ -48,7 +48,7 @@ const Business = {
     }
   },
   create(req, res) {
-    const businessInput = {
+    const newBusiness = {
       name: req.body.name,
       product: req.body.product,
       address: req.body.address,
@@ -57,7 +57,7 @@ const Business = {
       location: req.body.location.toLowerCase(),
       image: req.body.image,
     };
-    models.Business.create(businessInput)
+    models.Business.create(newBusiness)
       .then(businesses => res.status(201).json({
         message: 'business successfully created',
         business: businesses,
@@ -68,7 +68,14 @@ const Business = {
       }));
   },
   listSingle(req, res) {
-    models.Business.findById(req.params.id)
+    models.Business.findById(req.params.id, {
+      include: [
+        {
+          model: models.Review,
+          as: 'BusinessReviews',
+        },
+      ],
+    })
       .then((business) => {
         if (!business) {
           return res.status(404).json('Not found');
