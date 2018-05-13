@@ -1,17 +1,17 @@
-import users from '../model/user';
+import superagent from 'superagent';
+import models from '../models/index';
 
-const user = {
+// superagent
+//   .post('/signin');
+const User = {
   signIn(req, res) {
-    const newUser = {
-      name: req.body.name,
-      password: req.body.password,
-    };
-    for (let i = 0; i < users.length; i += 1) {
-      if (newUser.name === users[i].name && newUser.password === users[i].password) {
-        return res.status(200).json(`${newUser.name} successfully signin`);
-      }
-    }
-    return res.status(400).json('Signin not successful');
+    models.User.findOne({
+      where: {
+        name: req.body.name,
+      },
+    })
+      .then(user => res.status(200).json('successful signin'))
+      .catch(error => res.status(404).json(error));
   },
   signUp(req, res) {
     const newUser = {
@@ -21,15 +21,15 @@ const user = {
       email: req.body.email,
       phone: req.body.phone,
     };
-    users.push(newUser);
-    res.status(201).json({
-      user: newUser,
-      message: `${newUser.name} successfully signup`,
-    });
-  },
-  listUser(req, res) {
-    res.status(200).json(users);
+    models.User.create(newUser)
+      .then(user => res.status(201).json({
+        user,
+        message: `${newUser.name} signup`,
+      }))
+      .catch(error => res.status(400).json({
+        error,
+      }));
   },
 };
 
-export default user;
+export default User;
