@@ -11,7 +11,7 @@
     "build": "babel server -d dist && babel index.js -d dist",
     "unmigrate": "sequelize db:migrate:undo:all",
     "migrate": "npm run unmigrate && sequelize db:migrate",
-    "heroku-postbuild": "npm run migrate",
+    "heroku-postbuild": "npm install sequelize-cli && npm run migrate",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
