@@ -1,8 +1,6 @@
 import superagent from 'superagent';
 import models from '../models/index';
 
-// superagent
-//   .post('/signin');
 const User = {
   signIn(req, res) {
     models.User.findOne({
@@ -29,6 +27,16 @@ const User = {
       .catch(error => res.status(400).json({
         error,
       }));
+  },
+  listUser(req, res) {
+    models.User.findAll({
+      include: {
+        model: models.Business,
+        as: 'userBusiness',
+      },
+    })
+      .then(user => res.status(200).json(user))
+      .catch(error => res.status(404).json(error));
   },
 };
 

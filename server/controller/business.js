@@ -55,8 +55,9 @@ const Business = {
       phone: req.body.phone,
       category: req.body.category.toLowerCase(),
       location: req.body.location.toLowerCase(),
-      image: req.body.image,
+      image: req.file.path,
     };
+    console.log(req.file);
     models.Business.create(newBusiness)
       .then(businesses => res.status(201).json({
         message: 'business successfully created',
@@ -97,7 +98,7 @@ const Business = {
           phone: req.body.phone,
           location: req.body.location,
           category: req.body.category,
-          image: req.body.image,
+          image: req.file.path,
         });
         return res.status(200).send(business);
       })
