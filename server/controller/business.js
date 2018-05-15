@@ -55,7 +55,7 @@ const Business = {
       phone: req.body.phone,
       category: req.body.category.toLowerCase(),
       location: req.body.location.toLowerCase(),
-      image: req.file.path,
+      image: req.body.image,
     };
     models.Business.create(newBusiness)
       .then(businesses => res.status(201).json({
@@ -97,7 +97,7 @@ const Business = {
           phone: req.body.phone,
           location: req.body.location,
           category: req.body.category,
-          image: req.file.path,
+          image: req.body.image,
         });
         return res.status(200).send(business);
       })

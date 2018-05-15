@@ -5,14 +5,27 @@ const User = {
   signIn(req, res) {
     models.User.findOne({
       where: {
-        name: req.body.name,
+        email: req.body.email,
       },
     })
-      .then(user => res.status(200).json('successful signin'))
+      .then((user) => {
+        if (!user) {
+          return res.status(404).json('Auth failed');
+        } else {
+          console.log(user);
+          bcrypt.compare(req.body.password, user.password, (err, result) => {
+            if (result) {
+              return res.status(200).json('successful signin');
+            } else {
+              return res.status(400).json('Auth failed');
+            }
+          });
+        }
+      })
       .catch(error => res.status(404).json(error));
   },
   signUp(req, res) {
-    models.User.find({
+    models.User.findOne({
       where: {
         email: req.body.email,
       },
