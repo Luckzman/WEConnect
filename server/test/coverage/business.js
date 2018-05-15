@@ -81,7 +81,7 @@ describe('GET /business/1/reviews', () => {
   });
 });
 
-describe('/POST Business', () => {
+describe('/POST Review', () => {
   it('It should be able to post reviews', (done) => {
     const id = 1;
     chai.request(app)

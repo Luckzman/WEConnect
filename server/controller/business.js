@@ -57,7 +57,6 @@ const Business = {
       location: req.body.location.toLowerCase(),
       image: req.file.path,
     };
-    console.log(req.file);
     models.Business.create(newBusiness)
       .then(businesses => res.status(201).json({
         message: 'business successfully created',
