@@ -31,8 +31,8 @@ describe('/SignIn User', () => {
     chai.request(app)
       .post('/api/v1/auth/signin')
       .send({
-        name: 'Tobi',
-        password: 'tobi',
+        email: user.email,
+        password: user.password,
       })
       .end((err, res) => {
         res.should.have.status(200);

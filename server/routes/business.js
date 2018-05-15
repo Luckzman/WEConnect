@@ -1,5 +1,6 @@
 import express from 'express';
 import businessController from '../controller/business';
+import upload from '../middlewares/imageUpload';
 
 const business = express.Router();
 business.get('/', businessController.listAll);
