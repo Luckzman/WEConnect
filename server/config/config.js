@@ -22,5 +22,6 @@ module.exports = {
   production: {
     use_env_variable: process.env.DATABASE_URL,
     dialect: process.env.DB_DIALECT,
+    secret_key: process.env.SECRET_KEY,
   },
 };
