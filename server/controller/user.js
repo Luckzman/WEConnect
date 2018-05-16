@@ -13,7 +13,6 @@ const User = {
         if (!user) {
           return res.status(404).json('Auth failed');
         } else {
-          console.log(user);
           bcrypt.compare(req.body.password, user.password, (err, result) => {
             if (result) {
               const token = jwt.sign(
@@ -79,6 +78,10 @@ const User = {
       include: {
         model: models.Business,
         as: 'userBusiness',
+        include: [{
+          model: models.Review,
+          as: 'BusinessReviews',
+        }],
       },
     })
       .then(user => res.status(200).json(user))
