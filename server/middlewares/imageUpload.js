@@ -1,4 +1,4 @@
-import multer from 'multer';
+/* import multer from 'multer';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -17,6 +17,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const upload = multer({ storage, fileFilter }).single('image');
+const upload = multer({ storage, fileFilter });
 
-export default upload;
+export default upload.single('image');
+ */
