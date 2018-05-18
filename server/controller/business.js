@@ -55,8 +55,10 @@ const Business = {
       phone: req.body.phone,
       category: req.body.category.toLowerCase(),
       location: req.body.location.toLowerCase(),
-      image: req.body.image,
+      image: req.body.filename,
+      userId: req.userData.id,
     };
+    console.log(req.file);
     models.Business.create(newBusiness)
       .then(businesses => res.status(201).json({
         message: 'business successfully created',
@@ -68,13 +70,15 @@ const Business = {
       }));
   },
   listSingle(req, res) {
-    models.Business.findById(req.params.id, {
-      include: [
-        {
-          model: models.Review,
-          as: 'BusinessReviews',
-        },
-      ],
+    models.Business.find({
+      where: {
+        id: req.params.id,
+        userId: req.userData.id,
+      },
+      include: {
+        model: models.Review,
+        as: 'BusinessReviews',
+      },
     })
       .then((business) => {
         if (!business) {
@@ -85,7 +89,12 @@ const Business = {
       .catch(error => res.status(400).json(error));
   },
   update(req, res) {
-    models.Business.findById(req.params.id)
+    models.Business.find({
+      where: {
+        id: req.params.id,
+        userId: req.userData.id,
+      },
+    })
       .then((business) => {
         if (!business) {
           return res.status(404).json('Business not found');
@@ -104,7 +113,12 @@ const Business = {
       .catch(error => res.status(400).json(error));
   },
   delete(req, res) {
-    models.Business.findById(req.params.id)
+    models.Business.find({
+      where: {
+        id: req.params.id,
+        userId: req.userData.id,
+      },
+    })
       .then((business) => {
         if (!business) {
           return res.status(404).json('business not found');

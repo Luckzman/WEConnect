@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import models from '../models/index';
 
 const User = {
@@ -12,10 +13,22 @@ const User = {
         if (!user) {
           return res.status(404).json('Auth failed');
         } else {
-          console.log(user);
           bcrypt.compare(req.body.password, user.password, (err, result) => {
             if (result) {
-              return res.status(200).json('successful signin');
+              const token = jwt.sign(
+                {
+                  email: user.email,
+                  id: user.id,
+                },
+                process.env.SECRET_KEY,
+                {
+                  expiresIn: '1h',
+                },
+              );
+              return res.status(200).json({
+                message: 'Auth successful',
+                token,
+              });
             } else {
               return res.status(400).json('Auth failed');
             }
@@ -65,6 +78,10 @@ const User = {
       include: {
         model: models.Business,
         as: 'userBusiness',
+        include: [{
+          model: models.Review,
+          as: 'BusinessReviews',
+        }],
       },
     })
       .then(user => res.status(200).json(user))
