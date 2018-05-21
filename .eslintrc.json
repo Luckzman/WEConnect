@@ -8,7 +8,8 @@
         "import/no-dynamic-require": "off",
         "import/first": "off",
         "consistent-return": "off",
-        "strict": "off"
+        "strict": "off",
+        "no-shadow": "off"
     },
     "env": {
         "mocha": true
