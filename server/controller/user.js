@@ -15,19 +15,19 @@ const User = {
         } else {
           bcrypt.compare(req.body.password, user.password, (err, result) => {
             if (result) {
-              /* const token = jwt.sign(
+              const token = jwt.sign(
                 {
                   email: user.email,
                   id: user.id,
                 },
-                'my_secret_key',
+                process.env.SECRET_KEY,
                 {
                   expiresIn: '1h',
                 },
-              ); */
+              );
               return res.status(200).json({
                 message: 'Auth successful',
-                // token,
+                token,
               });
             } else {
               return res.status(400).json('Auth failed');

@@ -70,7 +70,7 @@ describe('/SignIn User', () => {
       .send(loginDetails)
       .end((err, res) => {
         res.should.have.status(200);
-        // res.body.should.have.property('token');
+        res.body.should.have.property('token');
         done();
       });
   });
@@ -82,12 +82,11 @@ describe('/Create Business', () => {
       .post('/api/v1/auth/signin')
       .send(loginDetails)
       .end((err, res) => {
-        console.log('this was run the login part');
         res.should.have.status(200);
-        // const { token } = res.body;
+        const { token } = res.body;
         request(app)
           .post('/api/v1/business')
-          // .set('Authorization', `Bearer ${token}`)
+          .set('Authorization', `Bearer ${token}`)
           // .set('Content-Type', `multipart/form-data; boundary=${boundary}`)
           // .write(`--${boundary}\r\n`)
           // .write(`Content-Disposition: form-data; name="image"; filename="${filename}"\r\n`)
@@ -111,10 +110,10 @@ describe('/GET:id Business', () => {
       .send(loginDetails)
       .end((err, res) => {
         res.should.have.status(200);
-        // const { token } = res.body;
+        const { token } = res.body;
         request(app)
           .get('/api/v1/business/1')
-          // .set('Authorization', `Bearer ${token}`)
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             res.should.have.status(200);
             done();
@@ -187,10 +186,10 @@ describe('/Update Business', () => {
       .send(loginDetails)
       .end((err, res) => {
         res.should.have.status(200);
-        // const { token } = res.body;
+        const { token } = res.body;
         request(app)
           .put('/api/v1/business/1')
-          // .set('Authorization', `Bearer ${token}`)
+          .set('Authorization', `Bearer ${token}`)
           // .set('Content-Type', `multipart/form-data; boundary=${boundary}`)
           // .write(`--${boundary}\r\n`)
           // .write(`Content-Disposition: form-data; name="image"; filename="${filename}"\r\n`)
@@ -214,10 +213,10 @@ describe('/Delete Business', () => {
       .send(loginDetails)
       .end((err, res) => {
         res.should.have.status(200);
-        // const { token } = res.body;
+        const { token } = res.body;
         request(app)
           .delete('/api/v1/business/1')
-          // .set('Authorization', `Bearer ${token}`)
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             res.should.have.status(200);
             done();
