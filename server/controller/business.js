@@ -56,9 +56,8 @@ const Business = {
       category: req.body.category.toLowerCase(),
       location: req.body.location.toLowerCase(),
       image: req.body.filename,
-      // userId: req.userData.id,
+      userId: req.userData.id,
     };
-    console.log(req.file);
     models.Business.create(newBusiness)
       .then(businesses => res.status(201).json({
         message: 'business successfully created',
@@ -73,7 +72,7 @@ const Business = {
     models.Business.find({
       where: {
         id: req.params.id,
-        // userId: req.userData.id,
+        userId: req.userData.id,
       },
       include: {
         model: models.Review,
@@ -92,7 +91,7 @@ const Business = {
     models.Business.find({
       where: {
         id: req.params.id,
-        // userId: req.userData.id,
+        userId: req.userData.id,
       },
     })
       .then((business) => {
@@ -116,7 +115,7 @@ const Business = {
     models.Business.find({
       where: {
         id: req.params.id,
-        // userId: req.userData.id,
+        userId: req.userData.id,
       },
     })
       .then((business) => {
