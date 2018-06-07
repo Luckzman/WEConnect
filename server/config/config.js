@@ -12,11 +12,11 @@ module.exports = {
     dialect: process.env.DB_DIALECT,
   },
   test: {
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_TEST_NAME,
-    host: process.env.DB_HOST,
-    secret_key: process.env.SECRET_KEY,
+    username: 'postgres',
+    password: 'postgres',
+    database: 'weconnect_test',
+    host: '127.0.0.1',
+    secret_key: 'my_secret',
     dialect: 'postgres',
   },
   production: {
