@@ -9,7 +9,7 @@ module.exports = {
     database: 'db_weconnect',
     host: '127.0.0.1',
     secret_key: ' ',
-    dialect: 'postgress',
+    dialect: 'postgres',
   },
   test: {
     username: 'postgres',
