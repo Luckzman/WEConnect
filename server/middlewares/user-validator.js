@@ -1,5 +1,8 @@
 const errorMessage = (res, message) => res.status(400).json({
-  message,
+  status: 'fail',
+  data: {
+    message,
+  },
 });
 
 const User = {
@@ -11,7 +14,6 @@ const User = {
     req.check('phone', 'phone is required').notEmpty();
 
     const errors = req.validationErrors();
-    console.log(errors);
     if (errors) { return errorMessage(res, errors[0].msg); }
 
     next();
@@ -22,7 +24,6 @@ const User = {
     req.check('password', 'password is required').notEmpty();
 
     const errors = req.validationErrors();
-    console.log(errors);
     if (errors) { return errorMessage(res, errors[0].msg); }
 
     next();

@@ -11,26 +11,35 @@ const User = {
     })
       .then((user) => {
         if (!user) {
-          return res.status(404).json('Auth failed');
+          return res.status(404).json({
+            status: 'fail',
+            message: 'Authentication failed',
+          });
         } else {
           bcrypt.compare(req.body.password, user.password, (err, result) => {
             if (result) {
-              /* const token = jwt.sign(
+              const token = jwt.sign(
                 {
                   email: user.email,
                   id: user.id,
                 },
-                'my_secret_key',
+                process.env.SECRET,
                 {
                   expiresIn: '1h',
                 },
-              ); */
+              );
               return res.status(200).json({
-                message: 'Auth successful',
-                // token,
+                status: 'success',
+                data: {
+                  message: 'Authentication successful',
+                  token,
+                },
               });
             } else {
-              return res.status(400).json('Auth failed');
+              return res.status(400).json({
+                status: 'fail',
+                message: 'Authentication failed',
+              });
             }
           });
         }
@@ -45,7 +54,10 @@ const User = {
     })
       .then((user) => {
         if (user) {
-          res.status(409).json('mail exist');
+          res.status(409).json({
+            status: 'fail',
+            message: 'User already exist',
+          });
         } else {
           bcrypt.hash(req.body.password, 10, (err, hash) => {
             if (err) {
@@ -61,12 +73,19 @@ const User = {
               models.User.create(newUser)
                 .then((newuser) => {
                   res.status(201).json({
-                    newuser,
-                    message: `${newUser.name} signup`,
+                    status: 'success',
+                    data: {
+                      message: 'Account created successfully',
+                      user: newuser,
+                    },
                   });
                 })
                 .catch(error => res.status(400).json({
-                  error,
+                  status: 'error',
+                  data: {
+                    message: 'Unable to communicate with database',
+                    error,
+                  },
                 }));
             }
           });
@@ -84,8 +103,19 @@ const User = {
         }],
       },
     })
-      .then(user => res.status(200).json(user))
-      .catch(error => res.status(404).json(error));
+      .then(user => res.status(200).json({
+        status: 'success',
+        data: {
+          user,
+        },
+      }))
+      .catch(error => res.status(400).json({
+        status: 'error',
+        data: {
+          message: 'Unable to communicate with database',
+          error,
+        },
+      }));
   },
 };
 

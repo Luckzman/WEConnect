@@ -1,14 +1,15 @@
-/* import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
-    const decode = jwt.verify(token, process.env.SECRET_KEY);
+    const decode = jwt.verify(token, process.env.SECRET);
     req.userData = decode;
     next();
   } catch (error) {
     return res.status(401).json({
-      message: 'Auth failed',
+      status: 'fail',
+      message: 'Authentication failed',
     });
   }
-}; */
+};

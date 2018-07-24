@@ -1,5 +1,8 @@
 const errorMessage = (res, message) => res.status(400).json({
-  message,
+  status: 'fail',
+  data: {
+    message,
+  },
 });
 
 const Business = {
@@ -12,8 +15,9 @@ const Business = {
     req.check('location', 'location is required').notEmpty();
 
     const errors = req.validationErrors();
-    console.log(errors);
-    if (errors) { return errorMessage(res, errors[0].msg); }
+    if (errors) {
+      return errorMessage(res, errors[0].msg);
+    }
 
     next();
   },
@@ -21,7 +25,6 @@ const Business = {
     req.check('id', 'params id must be id').isInt();
 
     const errors = req.validationErrors();
-    console.log(errors);
     if (errors) { return errorMessage(res, errors[0].msg); }
 
     next();

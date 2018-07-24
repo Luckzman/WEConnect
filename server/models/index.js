@@ -7,9 +7,9 @@ const basename = path.basename(module.filename);
 const env = process.env.NODE_ENV || 'development';
 const config = configJs[env];
 const db = {};
-console.log(env);
 
 let sequelize;
+
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
