@@ -1,11 +1,12 @@
 process.env.NODE_ENV = 'test';
 
-import request from 'supertest';
-import should from 'should';
-import 'should-http';
+import chai from 'chai';
+import chaiHttp from 'chai-http';
 import fs from 'fs';
 import app from '../../../index';
-import models from '../../models/index';
+
+chai.should();
+chai.use(chaiHttp);
 
 const businessTest = {
   name: 'abc, Nig.Ltd',
@@ -14,6 +15,7 @@ const businessTest = {
   phone: '0802233445566',
   category: 'transport',
   location: 'Lagos',
+  image: 'image',
 };
 
 const loginDetails = {
@@ -53,7 +55,7 @@ request(app)
 
 describe('/SignUp User', () => {
   it('it should signup users', (done) => {
-    request(app)
+    chai.request(app)
       .post('/api/v1/auth/signup')
       .send(user)
       .end((err, res) => {
@@ -65,7 +67,7 @@ describe('/SignUp User', () => {
 
 describe('/SignIn User', () => {
   it('it should signin and check token', (done) => {
-    request(app)
+    chai.request(app)
       .post('/api/v1/auth/signin')
       .send(loginDetails)
       .end((err, res) => {
@@ -78,16 +80,16 @@ describe('/SignIn User', () => {
 
 describe('/Create Business', () => {
   it('login user should be able to create business', (done) => {
-    request(app)
+    chai.request(app)
       .post('/api/v1/auth/signin')
       .send(loginDetails)
       .end((err, res) => {
         console.log('this was run the login part');
         res.should.have.status(200);
-        // const { token } = res.body;
-        request(app)
+        const { token } = res.body.data;
+        chai.request(app)
           .post('/api/v1/business')
-          // .set('Authorization', `Bearer ${token}`)
+          .set('Authorization', `Bearer ${token}`)
           // .set('Content-Type', `multipart/form-data; boundary=${boundary}`)
           // .write(`--${boundary}\r\n`)
           // .write(`Content-Disposition: form-data; name="image"; filename="${filename}"\r\n`)
@@ -106,15 +108,15 @@ describe('/Create Business', () => {
 
 describe('/GET:id Business', () => {
   it('it should get a single business detail', (done) => {
-    request(app)
+    chai.request(app)
       .post('/api/v1/auth/signin')
       .send(loginDetails)
       .end((err, res) => {
         res.should.have.status(200);
-        // const { token } = res.body;
-        request(app)
+        const { token } = res.body.data;
+        chai.request(app)
           .get('/api/v1/business/1')
-          // .set('Authorization', `Bearer ${token}`)
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             res.should.have.status(200);
             done();
@@ -125,7 +127,7 @@ describe('/GET:id Business', () => {
 
 describe('/GET Business', () => {
   it('It should be able to get business', (done) => {
-    request(app)
+    chai.request(app)
       .get('/api/v1/business')
       .end((err, res) => {
         res.should.have.status(200);
@@ -137,7 +139,7 @@ describe('/GET Business', () => {
 describe('/POST Review', () => {
   it('It should be able to post reviews', (done) => {
     const id = 1;
-    request(app)
+    chai.request(app)
       .post(`/api/v1/business/${id}/reviews`)
       .send(reviews)
       .end((err, res) => {
@@ -149,7 +151,7 @@ describe('/POST Review', () => {
 
 describe('GET /business/1/reviews', () => {
   it('it should get reviews of a business', (done) => {
-    request(app)
+    chai.request(app)
       .get('/api/v1/business/1/reviews')
       .end((err, res) => {
         res.should.have.status(200);
@@ -160,7 +162,7 @@ describe('GET /business/1/reviews', () => {
 
 describe('/GET Business params', () => {
   it('it should get business location', (done) => {
-    request(app)
+    chai.request(app)
       .get(`/api/v1/business?location=${businessTest.location}`)
       .end((err, res) => {
         res.should.have.status(200);
@@ -171,7 +173,7 @@ describe('/GET Business params', () => {
 
 describe('/GET Business params', () => {
   it('it should get business category', (done) => {
-    request(app)
+    chai.request(app)
       .get(`/api/v1/business?category=${businessTest.category}`)
       .end((err, res) => {
         res.should.have.status(200);
@@ -182,15 +184,15 @@ describe('/GET Business params', () => {
 
 describe('/Update Business', () => {
   it('login user should be able to create business', (done) => {
-    request(app)
+    chai.request(app)
       .post('/api/v1/auth/signin')
       .send(loginDetails)
       .end((err, res) => {
         res.should.have.status(200);
-        // const { token } = res.body;
-        request(app)
+        const { token } = res.body.data;
+        chai.request(app)
           .put('/api/v1/business/1')
-          // .set('Authorization', `Bearer ${token}`)
+          .set('Authorization', `Bearer ${token}`)
           // .set('Content-Type', `multipart/form-data; boundary=${boundary}`)
           // .write(`--${boundary}\r\n`)
           // .write(`Content-Disposition: form-data; name="image"; filename="${filename}"\r\n`)
@@ -209,15 +211,15 @@ describe('/Update Business', () => {
 
 describe('/Delete Business', () => {
   it('login user should be able to delete business', (done) => {
-    request(app)
+    chai.request(app)
       .post('/api/v1/auth/signin')
       .send(loginDetails)
       .end((err, res) => {
         res.should.have.status(200);
-        // const { token } = res.body;
-        request(app)
+        const { token } = res.body.data;
+        chai.request(app)
           .delete('/api/v1/business/1')
-          // .set('Authorization', `Bearer ${token}`)
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             res.should.have.status(200);
             done();
@@ -228,10 +230,10 @@ describe('/Delete Business', () => {
 
 describe('/Index Route', () => {
   it('it should get a response from index route', (done) => {
-    request(app)
+    chai.request(app)
       .get('/')
       .end((err, res) => {
-        res.should.have.status(302);
+        res.should.have.status(200);
         done();
       });
   });

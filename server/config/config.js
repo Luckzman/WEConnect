@@ -1,6 +1,4 @@
-import config from 'dotenv';
-
-config.config();
+require('dotenv').config();
 
 module.exports = {
   development: {
@@ -14,8 +12,9 @@ module.exports = {
     username: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.TEST_DATABASE,
-    host: process.env.HOST,
-    dialect: process.env.DIALECT,
+    host: '127.0.0.1',
+    port: 5432,
+    dialect: 'postgres',
   },
   production: {
     use_env_variable: 'DATABASE_URL',
