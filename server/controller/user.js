@@ -1,9 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import config from 'dotenv';
 import models from '../models/index';
-
-config.config();
 
 const User = {
   signIn(req, res) {
@@ -14,7 +11,10 @@ const User = {
     })
       .then((user) => {
         if (!user) {
-          return res.status(404).json('Auth failed');
+          return res.status(404).json({
+            status: 'fail',
+            message: 'Authentication failed',
+          });
         } else {
           bcrypt.compare(req.body.password, user.password, (err, result) => {
             if (result) {
@@ -28,13 +28,18 @@ const User = {
                   expiresIn: '1h',
                 },
               );
-              console.log(process.env.SECRET);
               return res.status(200).json({
-                message: 'Auth successful',
-                token,
+                status: 'success',
+                data: {
+                  message: 'Authentication successful',
+                  token,
+                },
               });
             } else {
-              return res.status(400).json('Auth failed');
+              return res.status(400).json({
+                status: 'fail',
+                message: 'Authentication failed',
+              });
             }
           });
         }
@@ -49,7 +54,10 @@ const User = {
     })
       .then((user) => {
         if (user) {
-          res.status(409).json('mail exist');
+          res.status(409).json({
+            status: 'fail',
+            message: 'User already exist',
+          });
         } else {
           bcrypt.hash(req.body.password, 10, (err, hash) => {
             if (err) {
@@ -65,12 +73,16 @@ const User = {
               models.User.create(newUser)
                 .then((newuser) => {
                   res.status(201).json({
-                    newuser,
-                    message: `${newUser.name} signup`,
+                    status: 'success',
+                    data: {
+                      message: 'Account created successfully',
+                      user: newuser,
+                    },
                   });
                 })
                 .catch(error => res.status(400).json({
-                  error,
+                  status: 'error',
+                  message: 'Unable to communicate with database',
                 }));
             }
           });

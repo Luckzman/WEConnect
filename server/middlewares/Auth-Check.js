@@ -1,7 +1,4 @@
 import jwt from 'jsonwebtoken';
-// import config from 'dotenv';
-
-// config.config();
 
 export default (req, res, next) => {
   try {
@@ -11,7 +8,8 @@ export default (req, res, next) => {
     next();
   } catch (error) {
     return res.status(401).json({
-      message: 'Auth failed',
+      status: 'fail',
+      message: 'Authentication failed',
     });
   }
 };
