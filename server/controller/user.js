@@ -82,7 +82,10 @@ const User = {
                 })
                 .catch(error => res.status(400).json({
                   status: 'error',
-                  message: 'Unable to communicate with database',
+                  data: {
+                    message: 'Unable to communicate with database',
+                    error,
+                  },
                 }));
             }
           });
@@ -100,8 +103,19 @@ const User = {
         }],
       },
     })
-      .then(user => res.status(200).json(user))
-      .catch(error => res.status(404).json(error));
+      .then(user => res.status(200).json({
+        status: 'success',
+        data: {
+          user,
+        },
+      }))
+      .catch(error => res.status(400).json({
+        status: 'error',
+        data: {
+          message: 'Unable to communicate with database',
+          error,
+        },
+      }));
   },
 };
 
