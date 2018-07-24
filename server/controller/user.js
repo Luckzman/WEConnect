@@ -1,6 +1,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import config from 'dotenv';
 import models from '../models/index';
+
+config.config();
 
 const User = {
   signIn(req, res) {
@@ -15,19 +18,20 @@ const User = {
         } else {
           bcrypt.compare(req.body.password, user.password, (err, result) => {
             if (result) {
-              /* const token = jwt.sign(
+              const token = jwt.sign(
                 {
                   email: user.email,
                   id: user.id,
                 },
-                'my_secret_key',
+                process.env.SECRET,
                 {
                   expiresIn: '1h',
                 },
-              ); */
+              );
+              console.log(process.env.SECRET);
               return res.status(200).json({
                 message: 'Auth successful',
-                // token,
+                token,
               });
             } else {
               return res.status(400).json('Auth failed');

@@ -1,9 +1,12 @@
-/* import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
+// import config from 'dotenv';
 
-module.exports = (req, res, next) => {
+// config.config();
+
+export default (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
-    const decode = jwt.verify(token, process.env.SECRET_KEY);
+    const decode = jwt.verify(token, process.env.SECRET);
     req.userData = decode;
     next();
   } catch (error) {
@@ -11,4 +14,4 @@ module.exports = (req, res, next) => {
       message: 'Auth failed',
     });
   }
-}; */
+};
